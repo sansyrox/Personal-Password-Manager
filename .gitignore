@@ -1,0 +1,5 @@
+.key
+*.db
+__pycache__/
+freeze
+
