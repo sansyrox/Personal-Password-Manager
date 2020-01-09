@@ -2,4 +2,7 @@
 *.db
 __pycache__/
 freeze
+*.json
+password_manager/*
+*.swp
 
