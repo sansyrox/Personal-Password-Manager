@@ -4,7 +4,7 @@ A password manager that encodes your passwords based on your unique key and allo
 
 ## Installation Steps
 1. `pip install -r requirements.txt`
-2. Generate your encryption key using `python encrytpion.py`
+2. Generate your encryption key using `python encryption.py`
 3. Create a config.json file with the following config
 ```
 Adding the host,username and password of your MySql DB
