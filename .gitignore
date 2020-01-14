@@ -5,4 +5,5 @@ freeze
 *.json
 password_manager/*
 *.swp
+password-manager/*
 
