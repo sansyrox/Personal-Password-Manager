@@ -39,9 +39,8 @@ def insert(service_name, password):
     crsr = connection.cursor()
     password = password.encode()
     f = Fernet(key)
-    password = f.encrypt(password)
-    query = "Insert into {}.password (name,password) \
-                values ({},{})".format(fh["user"],service_name.lower(),password)
+    password = f.encrypt(password).decode('utf-8')
+    query = "Insert into {}.password (name,password) values (\'{}\',\'{}\');".format(fh["user"],service_name.lower(),password)
     crsr.execute(query)
     connection.commit()
     connection.close()
@@ -80,7 +79,6 @@ def displayTable():
     for i in ans:
         password = i[-1]
         f = Fernet(key)
-        # print(password)
         password = f.decrypt(password.encode('utf-8')).decode('utf-8')
         final_ans.append((i[0],i[1],password))
     print(final_ans)
