@@ -21,7 +21,8 @@ def check(service):
 								password=fh["password"]
 				)
     crsr = connection.cursor()
-    crsr.execute("""Select * from %s.password where name=%s""",(fh["user"],service_name.lower()))
+    query = "Select * from {}.password where name={}".format(fh["user"],service_name.lower())
+    crsr.execute(query)
     ans = crsr.fetchall()
 
     if ans==[]:
@@ -39,8 +40,9 @@ def insert(service_name, password):
     password = password.encode()
     f = Fernet(key)
     password = f.encrypt(password)
-    crsr.execute("""Insert into %s.password (name,password)
-                values (%s,%s)""",(fh["user"],service_name.lower(),password))
+    query = "Insert into {}.password (name,password) \
+                values ({},{})".format(fh["user"],service_name.lower(),password)
+    crsr.execute(query)
     connection.commit()
     connection.close()
 
@@ -59,8 +61,8 @@ def update(service_name, password):
         f = Fernet(key)
         password = f.encrypt(password)
         print(password)
-        crsr.execute("""Update %s.password set password=%s where
-                    name=%s""",(fh["user"],password,service_name.lower()))
+        query = "Update {}.password set password={} where name={}".format(fh["user"],password,service_name.lower())
+        crsr.execute(query)
         connection.commit()
         connection.close()
 
@@ -71,7 +73,8 @@ def displayTable():
 								password=fh["password"]
 				)
     crsr = connection.cursor()
-    crsr.execute("Select * from %s.password;",(fh["user"]))
+    query = "Select * from {}.password;".format(fh["user"])
+    crsr.execute(query)
     ans = crsr.fetchall()
     final_ans = []
     for i in ans:
